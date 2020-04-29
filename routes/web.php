@@ -12,5 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'hello';
 });
+
+
+
+// 引入后台路由文件
+include base_path('routes/admin/admin.php');
