@@ -1,0 +1,2 @@
+127.0.0.1 - - [30/Apr/2020:07:53:59 +0800] "GET /admin/login HTTP/1.1" 200 2748 "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36"
+127.0.0.1 - - [30/Apr/2020:07:53:59 +0800] "GET /favicon.ico HTTP/1.1" 200 0 "http://www.zfw.com/admin/login" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36"

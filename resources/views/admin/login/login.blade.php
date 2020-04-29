@@ -17,6 +17,8 @@
     <div id="loginform" class="loginBox">
 {{--        引入验证--}}
         @include('admin/common/validate')
+{{--        引入消息提示--}}
+        @include('admin/common/msg')
         <form class="form form-horizontal" action="{{route('admin.login')}}" method="post">
             {{--            {{csrf_field()}}--}}
             @csrf
@@ -32,13 +34,13 @@
                     <input id="" name="password" type="password" placeholder="密码" class="input-text size-L">
                 </div>
             </div>
-            <div class="row cl">
-                <div class="formControls col-xs-8 col-xs-offset-3">
-                    <input class="input-text size-L" type="text" placeholder="验证码"
-                           onblur="if(this.value==''){this.value='验证码:'}"
-                           onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
-                    <img src=""> <a id="kanbuq" href="javascript:;">看不清，换一张</a></div>
-            </div>
+{{--            <div class="row cl">--}}
+{{--                <div class="formControls col-xs-8 col-xs-offset-3">--}}
+{{--                    <input class="input-text size-L" type="text" placeholder="验证码"--}}
+{{--                           onblur="if(this.value==''){this.value='验证码:'}"--}}
+{{--                           onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">--}}
+{{--                    <img src=""> <a id="kanbuq" href="javascript:;">看不清，换一张</a></div>--}}
+{{--            </div>--}}
             <div class="row cl">
                 <div class="formControls col-xs-8 col-xs-offset-3">
                     <label for="online">
