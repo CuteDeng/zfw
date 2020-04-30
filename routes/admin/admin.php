@@ -27,3 +27,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('user/restore/{id}', 'UserController@restore')->name('admin.user.restore');
     });
 });
+Route::get('email', function () {
+    // 发送普通文本
+//    \Mail::raw('test send mail',function (\Illuminate\Mail\Message $message){
+//        $message->to('1316896128@qq.com');
+//        $message->subject('test');
+//    });
+    // 发送富文本
+    \Mail::send('mail.adduser', ['user' => 'dave'], function (\Illuminate\Mail\Message $message) {
+        $message->to('1316896128@qq.com');
+        $message->subject('test');
+    });
+    dd(1);
+});

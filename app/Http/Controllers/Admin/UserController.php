@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Mail\Message;
+use Mail;
 
 class UserController extends BaseController
 {
@@ -44,8 +45,13 @@ class UserController extends BaseController
         ]);
         // 添加用户
         $post = $request->except(['_token', 'password_confirmation']);
+        $pwd = $post['password'];
         $model = User::create($post);
-
+        // 发送邮件给用户，匿名函数使用use方式引入外部变量
+        Mail::send('mail.adduser', compact('model','pwd'), function (Message $message) use ($model) {
+            $message->to($model->email);
+            $message->subject('添加用户成功');
+        });
         return redirect(route('admin.user.index'))->with('success', '添加用户成功');
     }
 
