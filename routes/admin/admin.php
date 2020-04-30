@@ -17,7 +17,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         // 管理员列表
         Route::get('user/index', 'UserController@index')->name('admin.user.index');
         // 添加管理员
-        Route::get('user/add','UserController@create')->name('admin.user.add');
-        Route::post('user/add','UserController@store')->name('admin.user.add');
+        Route::get('user/add', 'UserController@create')->name('admin.user.add');
+        Route::post('user/add', 'UserController@store')->name('admin.user.add');
+        // 删除管理员用户
+        Route::delete('user/del/{id}', 'UserController@del')->name('admin.user.del');
     });
 });

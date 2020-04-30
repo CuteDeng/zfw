@@ -16,7 +16,7 @@
     <span class="c-gray en">&gt;</span> 用户中心
     <span class="c-gray en">&gt;</span> 用户管理
     <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
-                                              href="javascript:location.replace(location.href);" title="刷新">
+       href="javascript:location.replace(location.href);" title="刷新">
         <i class="Hui-iconfont">&#xe68f;</i>
     </a>
 </nav>
@@ -58,7 +58,11 @@
             <tbody>
             @foreach($data as $item)
                 <tr class="text-c">
-                    <td><input type="checkbox" value="1" name=""></td>
+                    <td>
+                        @if(auth()->id() != $item->id)
+                            <input type="checkbox" value="1" name="">
+                        @endif
+                    </td>
                     <td>{{$item->id}}</td>
                     <td>{{$item->truename}}</td>
                     <td>{{$item->username}}</td>
@@ -69,7 +73,10 @@
                     <td class="td-status"><span class="label label-success radius">已启用</span></td>
                     <td class="td-manage">
                         <a href="#" class="label label-success radius">修改</a>
-                        <a href="#" class="label label-danger radius">删除</a>
+                        @if(auth()->id() != $item->id)
+                            <a href="{{route('admin.user.del',['id'=>$item->id])}}"
+                               class="label label-danger radius delbtn">删除</a>
+                        @endif
                     </td>
                 </tr>
             @endforeach
@@ -90,5 +97,25 @@
 <script type="text/javascript" src="/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/admin/lib/laypage/1.2/laypage.js"></script>
+<script>
+    $(".delbtn").click(function () {
+        let _token = "{{csrf_token()}}";
+        let url = $(this).attr('href');
+        $.ajax({
+            url: url,
+            data: {_token},
+            type: 'DELETE',
+            dataType: 'json'
+        }).then(ret => {
+            if (ret.status == 0) {
+                layer.msg(ret.message, {time: 2000, icon: 1}, () => {
+                    $(this).parents('tr').remove();
+                })
+            }
+        });
+        return false;
+    });
+
+</script>
 </body>
 </html>
