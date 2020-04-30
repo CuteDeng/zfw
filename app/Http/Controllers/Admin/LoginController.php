@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
+//    public function __construct()
+//    {
+//        $this->middleware(['ckadmin']);
+//    }
+
     // 显示登录
     public function index()
     {

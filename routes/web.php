@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return 'hello';
-});
+//Route::get('/', function () {
+//    return 'hello';
+//});
 
 
 

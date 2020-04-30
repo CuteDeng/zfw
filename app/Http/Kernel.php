@@ -8,7 +8,7 @@ class Kernel extends HttpKernel
 {
     /**
      * The application's global HTTP middleware stack.
-     *
+     * 全局中间件
      * These middleware are run during every request to your application.
      *
      * @var array
@@ -19,6 +19,8 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        // 注册全局中间件，验证后台用户是否登录
+//        \App\Http\Middleware\CheckAdminLogin::class,
     ];
 
     /**
@@ -45,7 +47,7 @@ class Kernel extends HttpKernel
 
     /**
      * The application's route middleware.
-     *
+     *  路由中间件
      * These middleware may be assigned to groups or used individually.
      *
      * @var array
@@ -60,6 +62,9 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // 后台用户注册中间件
+        // 别名  路径名
+        'ckadmin' =>  \App\Http\Middleware\CheckAdminLogin::class,
     ];
 
     /**
