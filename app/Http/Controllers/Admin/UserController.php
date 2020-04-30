@@ -52,7 +52,9 @@ class UserController extends BaseController
     // 删除管理员
     public function del(int $id)
     {
-//        User::find($id)->delete();
+        User::find($id)->delete();
+        // 如果配置了软删除，可以用这种方式实现强制删除
+//        User::find($id)->forceDelete();
         return ['status' => 0, 'message' => 'success'];
     }
 
