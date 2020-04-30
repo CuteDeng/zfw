@@ -14,5 +14,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('welcome', 'IndexController@welcome')->name('admin.welcome');
         // 退出登录
         Route::get('logout', 'IndexController@logout')->name('admin.logout');
+        // 管理员列表
+        Route::get('user/index', 'UserController@index')->name('admin.user.index');
     });
 });
