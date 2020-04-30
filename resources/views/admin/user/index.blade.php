@@ -20,6 +20,7 @@
         <i class="Hui-iconfont">&#xe68f;</i>
     </a>
 </nav>
+@include('admin.common.msg')
 <div class="page-container">
     <div class="text-c"> 日期范围：
         <input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin"

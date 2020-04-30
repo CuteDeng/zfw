@@ -10,30 +10,32 @@
         </a>
     </nav>
     <article class="page-container">
+{{--        表单验证--}}
+        @include('admin.common.validate')
         <form action="{{route('admin.user.add')}}" method="post" class="form form-horizontal" id="form-member-add">
             @csrf
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="" name="truename">
+                    <input type="text" class="input-text" value="{{old('truename')}}" placeholder="" id="" name="truename" >
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>账号：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="username" name="username">
+                    <input type="text" class="input-text" value="{{old('username')}}" placeholder="" id="username" name="username">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="password" name="password">
+                    <input type="text" class="input-text" id="password" name="password">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="" name="confirmation_password">
+                    <input type="text" class="input-text" placeholder="" id="" name="password_confirmation">
                 </div>
             </div>
             <div class="row cl">
@@ -52,13 +54,13 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="mobile" name="phone">
+                    <input type="text" class="input-text" value="{{old('phone')}}" placeholder="" id="mobile" name="phone">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" placeholder="@" name="email" id="email">
+                    <input type="text" class="input-text" placeholder="@" value="{{old('email')}}" name="email" id="email">
                 </div>
             </div>
             <div class="row cl">
@@ -82,40 +84,40 @@
             increaseArea: '20%'
         });
         // 表单验证
-        $("#form-member-add").validate({
-            rules: {
-                truename: {
-                    required: true
-                },
-                username: {
-                    required: true
-                },
-                password: {
-                    required: true
-                },
-                confirmation_password: {
-                    required: true,
-                    equalTo: '#password'
-                },
-                email: {
-                    email: true
-                },
-                phone: {
-                    phone: true
-                }
-            },
-            messages: {
-                truename: {
-                    required: '姓名不能为空'
-                },
-            },
-            onkeyup: false,
-            success: "valid",
-            // 通过后的处理方法
-            submitHandler: function (form) {
-                form.submit();
-            }
-        });
+        // $("#form-member-add").validate({
+        //     rules: {
+        //         truename: {
+        //             required: true
+        //         },
+        //         username: {
+        //             required: true
+        //         },
+        //         password: {
+        //             required: true
+        //         },
+        //         password_confirmation: {
+        //             required: true,
+        //             equalTo: '#password'
+        //         },
+        //         email: {
+        //             email: true
+        //         },
+        //         phone: {
+        //             phone: true
+        //         }
+        //     },
+        //     messages: {
+        //         truename: {
+        //             required: '姓名不能为空'
+        //         },
+        //     },
+        //     onkeyup: false,
+        //     success: "valid",
+        //     // 通过后的处理方法
+        //     submitHandler: function (form) {
+        //         form.submit();
+        //     }
+        // });
         // 自定义验证规则
         jQuery.validator.addMethod("phone", function (value, element) {
             var reg = /(\+86-)?1[3-9]\d{9}$/;

@@ -12,7 +12,7 @@ class UserController extends BaseController
     public function index()
     {
         // 分页
-        $data = User::paginate($this->pagesize);
+        $data = User::orderBy('id','desc')->paginate($this->pagesize);
         return view('admin.user.index', compact('data'));
     }
 
@@ -23,6 +23,27 @@ class UserController extends BaseController
 
     public function store(Request $request)
     {
-        dd(123);
+        // 表单验证
+//        $this->validate($request, [
+//            'truename' => 'required',
+//            'username' => 'required',
+//            'password' => 'required|confirmed',
+//            'phone' => 'nullable|phone'
+//        ], [
+//            'truename.required' => '真实姓名不能为空',
+               // 自定义验证规则
+//            'phone.phone' => '手机号码不合法'
+//        ]);
+        $this->validate($request, [
+            'truename' => 'required',
+            'username' => 'required|unique:users,username',
+            'password' => 'required|confirmed',
+            'phone' => 'nullable|phone'
+        ]);
+        // 添加用户
+        $post = $request->except(['_token','password_confirmation']);
+        $model = User::create($post);
+
+        return redirect(route('admin.user.index'))->with('success','添加用户成功');
     }
 }
