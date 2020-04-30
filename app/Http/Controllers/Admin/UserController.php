@@ -13,6 +13,16 @@ class UserController extends BaseController
     {
         // 分页
         $data = User::paginate($this->pagesize);
-        return view('admin.user.index',compact('data'));
+        return view('admin.user.index', compact('data'));
+    }
+
+    public function create()
+    {
+        return view('admin.user.create');
+    }
+
+    public function store(Request $request)
+    {
+        dd(123);
     }
 }

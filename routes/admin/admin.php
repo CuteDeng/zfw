@@ -16,5 +16,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('logout', 'IndexController@logout')->name('admin.logout');
         // 管理员列表
         Route::get('user/index', 'UserController@index')->name('admin.user.index');
+        // 添加管理员
+        Route::get('user/add','UserController@create')->name('admin.user.add');
+        Route::post('user/add','UserController@store')->name('admin.user.add');
     });
 });
