@@ -34,7 +34,8 @@
     </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
-            <a href="javascript:;" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+            <a href="javascript:;" class="btn btn-danger radius" onclick="deleteAll()"><i
+                    class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
             <a href="{{route('admin.user.add')}}" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a>
         </span>
         <span class="r">共有数据：<strong>88</strong> 条</span>
@@ -60,7 +61,9 @@
                 <tr class="text-c">
                     <td>
                         @if(auth()->id() != $item->id)
-                            <input type="checkbox" value="1" name="">
+                            @if($item->deleted_at == null)
+                                <input type="checkbox" value="{{$item->id}}" name="id[]">
+                            @endif
                         @endif
                     </td>
                     <td>{{$item->id}}</td>
@@ -74,8 +77,13 @@
                     <td class="td-manage">
                         <a href="#" class="label label-success radius">修改</a>
                         @if(auth()->id() != $item->id)
-                            <a href="{{route('admin.user.del',['id'=>$item->id])}}"
-                               class="label label-danger radius delbtn">删除</a>
+                            @if($item->deleted_at != null)
+                                <a href="{{route('admin.user.restore',['id'=>$item->id])}}"
+                                   class="label label-warning radius">还原</a>
+                            @else
+                                <a href="{{route('admin.user.del',['id'=>$item->id])}}"
+                                   class="label label-danger radius delbtn">删除</a>
+                            @endif
                         @endif
                     </td>
                 </tr>
@@ -98,8 +106,8 @@
 <script type="text/javascript" src="/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/admin/lib/laypage/1.2/laypage.js"></script>
 <script>
+    let _token = "{{csrf_token()}}";
     $(".delbtn").click(function () {
-        let _token = "{{csrf_token()}}";
         let url = $(this).attr('href');
         $.ajax({
             url: url,
@@ -116,6 +124,29 @@
         return false;
     });
 
+    function deleteAll() {
+        layer.confirm('确定删除吗？', {
+            btn: ['确认删除', '思考一下']
+        }, () => {
+            let ids = $('input[name="id[]"]:checked');
+            let id = [];
+            $.each(ids, (key, val) => {
+                // $(val) 将dom元素转换为jquery对象
+                id.push($(val).val());
+            });
+            $.ajax({
+                url: "{{route('admin.user.delall')}}",
+                data: {id, _token},
+                type: "DELETE",
+            }).then(ret => {
+                if (ret.status == 0) {
+                    layer.msg(ret.message, {time: 2000, icon: 1}, () => {
+                        location.reload()
+                    })
+                }
+            });
+        });
+    }
 </script>
 </body>
 </html>

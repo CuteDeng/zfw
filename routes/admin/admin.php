@@ -21,5 +21,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('user/add', 'UserController@store')->name('admin.user.add');
         // 删除管理员用户
         Route::delete('user/del/{id}', 'UserController@del')->name('admin.user.del');
+        // 批量删除管理员
+        Route::delete('user/delall', 'UserController@delall')->name('admin.user.delall');
+        // 还原管理员
+        Route::get('user/restore/{id}', 'UserController@restore')->name('admin.user.restore');
     });
 });

@@ -11,8 +11,8 @@ class UserController extends BaseController
     //管理员列表
     public function index()
     {
-        // 分页
-        $data = User::orderBy('id', 'asc')->paginate($this->pagesize);
+        // 分页 withTrashed 查询所有用户，包括软删除的用户
+        $data = User::orderBy('id', 'asc')->withTrashed()->paginate($this->pagesize);
         return view('admin.user.index', compact('data'));
     }
 
@@ -56,6 +56,19 @@ class UserController extends BaseController
         // 如果配置了软删除，可以用这种方式实现强制删除
 //        User::find($id)->forceDelete();
         return ['status' => 0, 'message' => 'success'];
+    }
+    // 批量删除管理员
+    public function delall(Request $request)
+    {
+        $ids = $request->get('id');
+        User::destroy($ids);
+        return ['status' => 0, 'message' => 'success'];
+    }
+
+    public function restore(int $id)
+    {
+        User::onlyTrashed()->where('id', $id)->restore();
+        return redirect(route('admin.user.index'))->with('success', '还原用户成功');
     }
 
 }
