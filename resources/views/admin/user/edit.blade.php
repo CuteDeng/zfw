@@ -3,7 +3,7 @@
     <nav class="breadcrumb">
         <i class="Hui-iconfont">&#xe67f;</i> 首页
         <span class="c-gray en">&gt;</span> 用户中心
-        <span class="c-gray en">&gt;</span> 添加用户
+        <span class="c-gray en">&gt;</span> 修改用户
         <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
            href="javascript:location.replace(location.href);" title="刷新">
             <i class="Hui-iconfont">&#xe68f;</i>
@@ -12,28 +12,36 @@
     <article class="page-container">
 {{--        表单验证--}}
         @include('admin.common.validate')
-        <form action="{{route('admin.user.add')}}" method="post" class="form form-horizontal" id="form-member-add">
+        <form action="{{route('admin.user.edit',['id'=>$model->id])}}" method="post" class="form form-horizontal" id="form-member-add">
+{{--            让表单模拟put提交--}}
+            @method('PUT')
             @csrf
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="{{old('truename')}}" placeholder="" id="" name="truename" >
+                    <input type="text" class="input-text" value="{{$model->truename}}" placeholder="" id="" name="truename" >
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>账号：</label>
+                <label class="form-label col-xs-4 col-sm-3">账号：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="{{old('username')}}" placeholder="" id="username" name="username">
+                    {{$model->username}}
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>原密码：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" id="spassword" name="spassword">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3">密码：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input type="text" class="input-text" id="password" name="password">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+                <label class="form-label col-xs-4 col-sm-3">确认密码：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input type="text" class="input-text" placeholder="" id="" name="password_confirmation">
                 </div>
@@ -54,18 +62,18 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="{{old('phone')}}" placeholder="" id="mobile" name="phone">
+                    <input type="text" class="input-text" value="{{$model->phone}}" placeholder="" id="mobile" name="phone">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" placeholder="@" value="{{old('email')}}" name="email" id="email">
+                    <input type="text" class="input-text" placeholder="@" value="{{$model->email}}" name="email" id="email">
                 </div>
             </div>
             <div class="row cl">
                 <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;添加&nbsp;&nbsp;">
+                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;修改&nbsp;&nbsp;">
                 </div>
             </div>
         </form>
@@ -92,11 +100,14 @@
                 username: {
                     required: true
                 },
-                password: {
+                // password: {
+                //     required: true
+                // },
+                spassword: {
                     required: true
                 },
                 password_confirmation: {
-                    required: true,
+                    // required: true,
                     equalTo: '#password'
                 },
                 email: {

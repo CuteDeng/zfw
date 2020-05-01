@@ -25,6 +25,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::delete('user/delall', 'UserController@delall')->name('admin.user.delall');
         // 还原管理员
         Route::get('user/restore/{id}', 'UserController@restore')->name('admin.user.restore');
+        // 修改管理员
+        Route::get('user/edit/{id}','UserController@edit')->name('admin.user.edit');
+        Route::put('user/edit/{id}','UserController@update')->name('admin.user.edit');
     });
 });
 Route::get('email', function () {

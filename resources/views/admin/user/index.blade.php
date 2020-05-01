@@ -75,7 +75,7 @@
                     <td>{{$item->created_at}}</td>
                     <td class="td-status"><span class="label label-success radius">已启用</span></td>
                     <td class="td-manage">
-                        <a href="#" class="label label-success radius">修改</a>
+                        <a href="{{route('admin.user.edit',['id'=>$item->id])}}" class="label label-success radius">修改</a>
                         @if(auth()->id() != $item->id)
                             @if($item->deleted_at != null)
                                 <a href="{{route('admin.user.restore',['id'=>$item->id])}}"

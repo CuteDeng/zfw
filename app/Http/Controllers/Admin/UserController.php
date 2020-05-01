@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use Mail;
+use Hash;
 
 class UserController extends BaseController
 {
@@ -48,7 +49,7 @@ class UserController extends BaseController
         $pwd = $post['password'];
         $model = User::create($post);
         // 发送邮件给用户，匿名函数使用use方式引入外部变量
-        Mail::send('mail.adduser', compact('model','pwd'), function (Message $message) use ($model) {
+        Mail::send('mail.adduser', compact('model', 'pwd'), function (Message $message) use ($model) {
             $message->to($model->email);
             $message->subject('添加用户成功');
         });
@@ -63,6 +64,7 @@ class UserController extends BaseController
 //        User::find($id)->forceDelete();
         return ['status' => 0, 'message' => 'success'];
     }
+
     // 批量删除管理员
     public function delall(Request $request)
     {
@@ -71,10 +73,44 @@ class UserController extends BaseController
         return ['status' => 0, 'message' => 'success'];
     }
 
+    // 还原用户
     public function restore(int $id)
     {
         User::onlyTrashed()->where('id', $id)->restore();
         return redirect(route('admin.user.index'))->with('success', '还原用户成功');
     }
 
+    // 修改用户界面
+    public function edit(int $id)
+    {
+        $model = User::find($id);
+        return view('admin.user.edit', compact('model'));
+    }
+
+    // 修改用户操作
+    public function update(Request $request, int $id)
+    {
+        $model = User::find($id);
+        $oldPass = $model->password;
+        $sPass = $request->get('spassword');
+        // 验证原密码和旧密码是否一致
+        $bool = Hash::check($sPass, $oldPass);
+        if ($bool) {
+            $data = $request->only([
+                'truename',
+                'password',
+                'sex',
+                'phone',
+                'email'
+            ]);
+            if (!empty($data['password'])) {
+                $data['password'] = bcrypt($data['password']);
+            } else {
+                unset($data['password']);
+            }
+            $model->update($data);
+            return redirect(route('admin.user.index'))->with(['success' => '修改成功']);
+        }
+        return redirect(route('admin.user.edit', $model))->withErrors(['error' => '原密码错误']);
+    }
 }
