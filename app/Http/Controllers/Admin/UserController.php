@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
@@ -78,6 +79,23 @@ class UserController extends BaseController
     {
         User::onlyTrashed()->where('id', $id)->restore();
         return redirect(route('admin.user.index'))->with('success', '还原用户成功');
+    }
+
+    // 给用户分配角色
+    public function role(Request $request, User $user)
+    {
+        if ($request->isMethod('post')) {
+            $post = $this->validate($request, [
+                'role_id' => 'required|min:1'
+            ], [
+                'role_id.required' => '必须勾选'
+            ]);
+            $user->update($post);
+            return redirect(route('admin.user.index'));
+        }
+        // 获取所有的角色
+        $roleAll = Role::all();
+        return view('admin.user.role', compact('user', 'roleAll'));
     }
 
     // 修改用户界面

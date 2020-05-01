@@ -17,4 +17,10 @@ class User extends AuthUser
     protected $hidden = ['password'];
     // 软删除标志字段
     protected $dates = ['deleted_at'];
+
+    // 用户属于角色
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
 }

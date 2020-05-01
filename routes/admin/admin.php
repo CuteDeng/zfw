@@ -25,13 +25,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::delete('user/delall', 'UserController@delall')->name('user.delall');
         // 还原管理员
         Route::get('user/restore/{id}', 'UserController@restore')->name('user.restore');
+        // 给管理员分配角色
+        Route::match(['get', 'post'], 'user/role/{user}', 'UserController@role')->name('user.role');
         // 修改管理员
         Route::get('user/edit/{id}', 'UserController@edit')->name('user.edit');
         Route::put('user/edit/{id}', 'UserController@update')->name('user.edit');
         // 权限管理，定义资源路由,as 用来设置别名前缀
         Route::resource('role', 'RoleController');
-        Route::get('role/node/{role}','RoleController@node')->name('role.node');
-        Route::post('role/node/{role}','RoleController@nodeSave')->name('role.node');
+        Route::get('role/node/{role}', 'RoleController@node')->name('role.node');
+        Route::post('role/node/{role}', 'RoleController@nodeSave')->name('role.node');
         Route::resource('node', 'NodeController');
     });
 });

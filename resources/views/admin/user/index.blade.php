@@ -47,13 +47,14 @@
                 <th width="25"><input type="checkbox" name="" value=""></th>
                 <th width="80">ID</th>
                 <th width="100">真实名</th>
+                <th width="100">角色</th>
                 <th width="100">用户名</th>
                 <th width="40">性别</th>
                 <th width="90">手机</th>
                 <th width="150">邮箱</th>
                 <th width="130">加入时间</th>
                 <th width="70">状态</th>
-                <th width="100">操作</th>
+                <th width="130">操作</th>
             </tr>
             </thead>
             <tbody>
@@ -68,6 +69,7 @@
                     </td>
                     <td>{{$item->id}}</td>
                     <td>{{$item->truename}}</td>
+                    <td>{{$item->role->name}}</td>
                     <td>{{$item->username}}</td>
                     <td>{{$item->sex}}</td>
                     <td>{{$item->phone}}</td>
@@ -75,6 +77,7 @@
                     <td>{{$item->created_at}}</td>
                     <td class="td-status"><span class="label label-success radius">已启用</span></td>
                     <td class="td-manage">
+                        <a href="{{route('admin.user.role',$item)}}" class="label label-success radius">分配角色</a>
                         <a href="{{route('admin.user.edit',['id'=>$item->id])}}" class="label label-success radius">修改</a>
                         @if(auth()->id() != $item->id)
                             @if($item->deleted_at != null)
