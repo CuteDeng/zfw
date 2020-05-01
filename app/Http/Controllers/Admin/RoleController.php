@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -10,12 +11,11 @@ class RoleController extends BaseController
     /**
      * Display a listing of the resource.
      * 列表
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $data = Role::paginate($this->pagesize);
+        return view('admin.role.index',compact('data'));
     }
 
     /**
