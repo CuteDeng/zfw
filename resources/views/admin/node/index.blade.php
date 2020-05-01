@@ -38,16 +38,24 @@
                 <tbody>
                 @foreach($data as $item)
                     <tr class="text-c">
-                        <td>{{$item->id}}</td>
-                        <td>{{$item->name}}</td>
-                        <td>{{$item->route_name}}</td>
-{{--                        // 解析html,不转义--}}
-                        <td>{!! $item->menu !!}</td>
+                        <td>{{$item['id']}}</td>
+                        <td class="text-l">{{$item['html']}}{{$item['name']}}</td>
+                        <td>{{$item['route_name']}}</td>
+                        {{--                        // 解析html,不转义--}}
+                        {{--                        <td>{!! $item['menu'] !!}</td>--}}
+                        <td>
+                            @if($item['is_menu'] == '1')
+                                <span class="label label-success radius">是</span>
+                            @else
+                                <span class="label label-danger radius">否</span>
+                            @endif
+                        </td>
                         {{--                        <td><a href="#" class="label label-success radius">权限</a></td>--}}
-                        <td>{{$item->created_at}}</td>
+                        <td>{{$item['created_at']}}</td>
                         <td class="td-manage">
-                            <a href="{{route('admin.node.edit',['id'=>$item->id])}}" class="label label-success radius">修改</a>
-                            <a href="{{route('admin.node.destroy',['id'=>$item->id])}}"
+                            <a href="{{route('admin.node.edit',['id'=>$item['id']])}}"
+                               class="label label-success radius">修改</a>
+                            <a href="{{route('admin.node.destroy',['id'=>$item['id']])}}"
                                class="label label-warning radius">删除</a>
                         </td>
                     </tr>

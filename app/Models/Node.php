@@ -21,4 +21,10 @@ class Node extends Base
             return '<span class="label label-danger radius">否</span>';
         }
     }
+
+    public function getAllList()
+    {
+        $data = self::get()->toArray();
+        return $this->treeLevel($data);
+    }
 }

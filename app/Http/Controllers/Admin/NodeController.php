@@ -13,7 +13,8 @@ class NodeController extends Controller
      */
     public function index()
     {
-        $data = Node::all();
+        $model = new Node();
+        $data = $model->getAllList();
         return view('admin.node.index', compact('data'));
     }
 
