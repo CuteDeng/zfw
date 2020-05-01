@@ -12,10 +12,14 @@ class RoleController extends BaseController
      * Display a listing of the resource.
      * 列表
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Role::paginate($this->pagesize);
-        return view('admin.role.index', compact('data'));
+        // 搜索
+        $name = $request->get('name');
+        $data = Role::when($name, function ($query) use ($name) {
+            $query->where('name', 'like', "%{$name}%");
+        })->paginate($this->pagesize);
+        return view('admin.role.index', compact('data','name'));
     }
 
     /**

@@ -12,7 +12,7 @@
     @include('admin.common.msg')
     <div class="page-container">
         <form method="get" class="text-c">
-            <input type="text" class="input-text" style="width:250px" placeholder="输入角色名称" id="" name="name">
+            <input type="text" class="input-text" style="width:250px"  value="{{$name}}" placeholder="输入角色名称" id="" name="name">
             <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜角色
             </button>
         </form>
