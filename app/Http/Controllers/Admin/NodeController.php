@@ -18,13 +18,12 @@ class NodeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 添加节点
      */
     public function create()
     {
-        //
+        $data = Node::where("pid", 0)->get();
+        return view('admin.node.create', compact('data'));
     }
 
     /**
@@ -35,7 +34,8 @@ class NodeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Node::create($request->except('_token'));
+        return ['status' => 0, 'message' => 'success'];
     }
 
     /**

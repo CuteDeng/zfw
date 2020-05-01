@@ -41,7 +41,7 @@
                         <td>{{$item->id}}</td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->route_name}}</td>
-                        <td>{{$item->is_enum}}</td>
+                        <td>{{$item->is_menu}}</td>
                         {{--                        <td><a href="#" class="label label-success radius">权限</a></td>--}}
                         <td>{{$item->created_at}}</td>
                         <td class="td-manage">

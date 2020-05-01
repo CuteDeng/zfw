@@ -18,7 +18,7 @@ class CreateNodesTable extends Migration
             $table->string('name', '50')->comment('节点名称');
             $table->string('route_name', '100')->default('')->comment('路由别名，权限标识');
             $table->unsignedInteger('pid')->default(0)->comment('上级id');
-            $table->enum('is_enum', ['0', '1'])->default(0)->comment('0代表菜单，1代表非菜单');
+            $table->enum('is_menu', ['0', '1'])->default(0)->comment('0代表菜单，1代表非菜单');
             $table->timestamps();
             $table->softDeletes();
         });
