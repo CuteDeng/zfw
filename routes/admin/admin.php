@@ -30,6 +30,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::put('user/edit/{id}', 'UserController@update')->name('user.edit');
         // 权限管理，定义资源路由,as 用来设置别名前缀
         Route::resource('role', 'RoleController');
+        Route::resource('node', 'NodeController');
     });
 });
 Route::get('email', function () {

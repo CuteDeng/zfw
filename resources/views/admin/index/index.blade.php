@@ -39,6 +39,7 @@
                 <ul>
                     <li><a data-href="{{route('admin.user.index')}}" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
                     <li><a data-href="{{route('admin.role.index')}}" data-title="角色列表" href="javascript:void(0)">角色列表</a></li>
+                    <li><a data-href="{{route('admin.node.index')}}" data-title="节点列表" href="javascript:void(0)">节点列表</a></li>
                 </ul>
             </dd>
         </dl>
