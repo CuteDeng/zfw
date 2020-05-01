@@ -34,14 +34,19 @@
 <aside class="Hui-aside">
     <div class="menu_dropdown bk_2">
         <dl id="menu-admin">
-            <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a data-href="{{route('admin.user.index')}}" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
-                    <li><a data-href="{{route('admin.role.index')}}" data-title="角色列表" href="javascript:void(0)">角色列表</a></li>
-                    <li><a data-href="{{route('admin.node.index')}}" data-title="节点列表" href="javascript:void(0)">节点列表</a></li>
-                </ul>
-            </dd>
+            @foreach($menuData as $item)
+                <dt><i class="Hui-iconfont">&#xe62d;</i> {{$item['name']}}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        @foreach($item['sub'] as $subItem)
+                            <li><a data-href="{{route($subItem['route_name'])}}" data-title="{{$subItem['name']}}"
+                                   href="javascript:void(0)">{{$subItem['name']}}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </dd>
+            @endforeach
         </dl>
 
     </div>

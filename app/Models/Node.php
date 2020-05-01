@@ -22,9 +22,17 @@ class Node extends Base
         }
     }
 
+    // 获取所有节点
     public function getAllList()
     {
         $data = self::get()->toArray();
         return $this->treeLevel($data);
+    }
+
+    // 获取树状结构的节点
+    public function treeData()
+    {
+        $data = Node::where('is_menu', '1')->get()->toArray();
+        return $this->subTree($data);
     }
 }
