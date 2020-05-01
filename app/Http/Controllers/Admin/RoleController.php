@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Node;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -95,6 +96,24 @@ class RoleController extends BaseController
                 'message' => '验证不通过'
             ];
         }
+    }
+
+    // 给角色分配权限展示
+    public function node(Role $role)
+    {
+        // 获取当前角色所拥有的权限
+        $nodes = $role->nodes()->pluck('id')->toArray();
+        // 获取所有的权限
+        $nodeAll = (new Node())->getAllList();
+        return view('admin.role.node', compact('role', 'nodes', 'nodeAll'));
+    }
+
+    // 给角色分配权限保存
+    public function nodeSave(Request $request, Role $role)
+    {
+        // 关联模型的数据同步
+        $role->nodes()->sync($request->get('node'));
+        return redirect(route('admin.role.index'));
     }
 
     /**
