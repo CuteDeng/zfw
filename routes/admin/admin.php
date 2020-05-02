@@ -35,6 +35,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::get('role/node/{role}', 'RoleController@node')->name('role.node');
         Route::post('role/node/{role}', 'RoleController@nodeSave')->name('role.node');
         Route::resource('node', 'NodeController');
+
+        // 文章管理
+        Route::resource('article', 'ArticleController');
     });
 });
 Route::get('email', function () {
