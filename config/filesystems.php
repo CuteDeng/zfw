@@ -42,6 +42,11 @@ return [
     */
 
     'disks' => [
+        // 上传文章封面
+        'article' => [
+            'driver' => 'local',
+            'root' => public_path('uploads/article'),
+        ],
 
         'local' => [
             'driver' => 'local',

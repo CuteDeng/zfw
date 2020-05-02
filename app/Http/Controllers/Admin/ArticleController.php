@@ -62,12 +62,22 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param AddArticleRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(AddArticleRequest $request)
     {
-        dd(1);
+        $pic = config('up.pic');
+        if ($request->hasFile('pic')) {
+            // 上传到article对应的路径（此路径配置在filesystems.php）
+            $ret = $request->file('pic')->store('', 'article');
+            $pic = '/uploads/article/' . $ret;
+        }
+        // 保存数据到db
+        $post = $request->except('_token');
+        $post['pic'] = $pic;
+        Article::create($post);
+        return redirect(route('admin.article.index'));
     }
 
     /**

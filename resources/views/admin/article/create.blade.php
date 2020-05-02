@@ -11,7 +11,7 @@
     </nav>
     @include('admin.common.validate')
     <article class="page-container">
-        <form action="{{route('admin.article.store')}}" method="post" class="form form-horizontal">
+        <form enctype="multipart/form-data" action="{{route('admin.article.store')}}" method="post" class="form form-horizontal">
             @csrf
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">* </span>标题：</label>
