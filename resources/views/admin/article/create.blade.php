@@ -9,6 +9,7 @@
             <i class="Hui-iconfont">&#xe68f;</i>
         </a>
     </nav>
+    @include('admin.common.validate')
     <article class="page-container">
         <form action="{{route('admin.article.store')}}" method="post" class="form form-horizontal">
             @csrf
