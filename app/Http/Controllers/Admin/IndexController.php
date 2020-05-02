@@ -11,8 +11,10 @@ class  IndexController extends Controller
     // 后台首页
     public function index()
     {
+        // 从session中获取用户的权限
+        $auth = session('admin.auth');
         // 读取菜单
-        $menuData = (new Node())->treeData();
+        $menuData = (new Node())->treeData($auth);
         return view('admin.index.index',compact('menuData'));
     }
 

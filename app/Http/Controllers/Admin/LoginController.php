@@ -32,8 +32,17 @@ class LoginController extends Controller
         // 登录
         $bool = auth()->attempt($post);
         if ($bool) {
-//           $model = auth()->user();
-//           $userinfo = $model->toArray();
+            // 判断是不是超级管理员
+            if (env('SUPER') == $post['username']) {
+                session(['admin.auth' => true]);
+            } else {
+                // 获取当前用户的权限，存储到session中
+                $userModel = auth()->user();
+                $roleModel = $userModel->role;
+                $nodes = $roleModel->nodes()->pluck('name', 'id')->toArray();
+                session(['admin.auth' => $nodes]);
+            }
+
             return redirect(route('admin.index'));
         }
         return redirect(route('admin.login'))->withErrors('登录失败');

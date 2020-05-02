@@ -30,9 +30,13 @@ class Node extends Base
     }
 
     // 获取树状结构的节点
-    public function treeData()
+    public function treeData($allow_nodes)
     {
-        $data = Node::where('is_menu', '1')->get()->toArray();
+        $query = Node::where('is_menu', '1');
+        if (is_array($allow_nodes)) {
+            $query->whereIn('id', array_keys($allow_nodes));
+        }
+        $data = $query->get()->toArray();
         return $this->subTree($data);
     }
 }
