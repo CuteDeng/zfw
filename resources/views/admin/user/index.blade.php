@@ -78,14 +78,16 @@
                     <td class="td-status"><span class="label label-success radius">已启用</span></td>
                     <td class="td-manage">
                         <a href="{{route('admin.user.role',$item)}}" class="label label-success radius">分配角色</a>
-                        <a href="{{route('admin.user.edit',['id'=>$item->id])}}" class="label label-success radius">修改</a>
+                        {!! $item->editBtn('admin.user.edit') !!}
+{{--                        <a href="{{route('admin.user.edit',['id'=>$item->id])}}" class="label label-success radius">修改</a>--}}
                         @if(auth()->id() != $item->id)
                             @if($item->deleted_at != null)
                                 <a href="{{route('admin.user.restore',['id'=>$item->id])}}"
                                    class="label label-warning radius">还原</a>
                             @else
-                                <a href="{{route('admin.user.del',['id'=>$item->id])}}"
-                                   class="label label-danger radius delbtn">删除</a>
+{{--                                <a href="{{route('admin.user.del',['id'=>$item->id])}}"--}}
+{{--                                   class="label label-danger radius delbtn">删除</a>--}}
+                                {!! $item->delBtn('admin.user.del') !!}
                             @endif
                         @endif
                     </td>
