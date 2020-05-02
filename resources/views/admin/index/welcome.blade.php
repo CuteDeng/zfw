@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/css/H-ui.admin.css" />
     <link rel="stylesheet" type="text/css" href="/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
-    <link rel="stylesheet" type="text/css" href=/admin/"static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/css/style.css" />
     <title>我的桌面</title>
 </head>
 <body>

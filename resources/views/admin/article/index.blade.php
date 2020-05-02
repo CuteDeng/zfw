@@ -11,9 +11,13 @@
     </nav>
     @include('admin.common.msg')
     <div class="page-container">
-        <form method="get" class="text-c">
-            <input type="text" class="input-text" style="width:250px" value="{{request()->get('name')}}"
-                   placeholder="输入文章标题" id="" name="name">
+        <form method="get" class="text-c" onsubmit="return dopost()">
+            日期范围：
+            <input type="date"  id="datemin" class="input-text Wdate" style="width:120px;">
+            -
+            <input type="date" id="datemax" class="input-text Wdate" style="width:120px;">
+            <input type="text" class="input-text" style="width:250px" value="{{request()->get('title')}}"
+                   placeholder="输入文章标题" id="title">
             <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜文章
             </button>
         </form>
@@ -55,7 +59,7 @@
 @endsection
 @section('js')
     <script !src="">
-        $(".table-sort").DataTable({
+        var dtable = $(".table-sort").DataTable({
             // 下拉框分页列表
             lengthMenu: [5, 10, 15, 20, 100],
             // 隐藏搜索框
@@ -71,7 +75,13 @@
             serviceSide: true,
             ajax: {
                 url: '{{route('admin.article.index')}}',
-                type: 'get'
+                type: 'get',
+                // 动态获取dom节点的value
+                data: function (ret) {
+                    ret.datemin = $("#datemin").val();
+                    ret.datemax = $("#datemax").val();
+                    ret.title = $.trim($("#title").val());
+                }
             },
             // 指定每列显示的数据
             columns: [
@@ -82,5 +92,9 @@
                 {data: 'action', defaultContent: 'test'}
             ]
         });
+        function dopost() {
+            dtable.ajax.reload();
+            return false;
+        }
     </script>
 @endsection
