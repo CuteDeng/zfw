@@ -37,7 +37,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::resource('node', 'NodeController');
 
         // 文章管理
+        // 文件上传
+        Route::post('article/upfile', 'ArticleController@upfile')->name('article.upfile');
         Route::resource('article', 'ArticleController');
+
+
     });
 });
 Route::get('email', function () {

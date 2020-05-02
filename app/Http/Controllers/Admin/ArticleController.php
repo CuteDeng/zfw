@@ -67,17 +67,30 @@ class ArticleController extends Controller
      */
     public function store(AddArticleRequest $request)
     {
-        $pic = config('up.pic');
-        if ($request->hasFile('pic')) {
-            // 上传到article对应的路径（此路径配置在filesystems.php）
-            $ret = $request->file('pic')->store('', 'article');
-            $pic = '/uploads/article/' . $ret;
-        }
+//        $pic = config('up.pic');
+        // 表单提交方式的文件上传
+//        if ($request->hasFile('pic')) {
+//            // 上传到article对应的路径（此路径配置在filesystems.php）
+//            $ret = $request->file('pic')->store('', 'article');
+//            $pic = '/uploads/article/' . $ret;
+//        }
         // 保存数据到db
-        $post = $request->except('_token');
-        $post['pic'] = $pic;
+        $post = $request->except('_token', 'file');
+//        $post['pic'] = $pic;
         Article::create($post);
         return redirect(route('admin.article.index'));
+    }
+
+    // 文件上传
+    public function upfile(Request $request)
+    {
+        $pic = config('up.pic');
+        if ($request->hasFile('file')) {
+            // 上传到article对应的路径（此路径配置在filesystems.php）
+            $ret = $request->file('file')->store('', 'article');
+            $pic = '/uploads/article/' . $ret;
+        }
+        return ['status' => 0, 'url' => $pic];
     }
 
     /**
