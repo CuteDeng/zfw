@@ -13,8 +13,23 @@ class ArticleController extends Controller
      * 文章列表
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // ajax方式实现分页
+        if ($request->header('X-Requested-With') == 'XMLHttpRequest') {
+            $start = $request->get('start', 0);
+            // 使用min函数，防止用户暴力搜索，最多支持100条
+            $length = min(100, $request->get('length', 10));
+            $total = Article::count();
+            $data = Article::offset($start)->limit($length)->get();
+            $result = [
+                'draw' => $request->get('draw'),
+                'recordsTotal' => $total,
+                'recordsFiltered' => $total,
+                'data' => $data
+            ];
+            return $result;
+        }
         $data = Article::all();
         return view('admin.article.index', compact('data'));
     }

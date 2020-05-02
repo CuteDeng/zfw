@@ -56,12 +56,30 @@
 @section('js')
     <script !src="">
         $(".table-sort").DataTable({
+            // 下拉框分页列表
+            lengthMenu: [5, 10, 15, 20, 100],
+            // 隐藏搜索框
+            searching: false,
             // 第三列不进行排序
             columnDefs: [
                 {
                     targets: [3],
                     orderable: false
                 }
+            ],
+            // 开启ajax,进行服务端分页
+            serviceSide: true,
+            ajax: {
+                url: '{{route('admin.article.index')}}',
+                type: 'get'
+            },
+            // 指定每列显示的数据
+            columns: [
+                // 格式：{data:'',defaultContent:'',className:''}
+                {data: 'id', className: 'text-c'},
+                {data: 'title'},
+                {data: 'created_at'},
+                {data: 'action', defaultContent: 'test'}
             ]
         });
     </script>
