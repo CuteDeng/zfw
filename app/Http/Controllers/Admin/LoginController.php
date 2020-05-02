@@ -33,13 +33,13 @@ class LoginController extends Controller
         $bool = auth()->attempt($post);
         if ($bool) {
             // 判断是不是超级管理员
-            if (env('SUPER') == $post['username']) {
+            if (config('rbac.super') == $post['username']) {
                 session(['admin.auth' => true]);
             } else {
                 // 获取当前用户的权限，存储到session中
                 $userModel = auth()->user();
                 $roleModel = $userModel->role;
-                $nodes = $roleModel->nodes()->pluck('name', 'id')->toArray();
+                $nodes = $roleModel->nodes()->pluck('route_name', 'id')->toArray();
                 session(['admin.auth' => $nodes]);
             }
 
