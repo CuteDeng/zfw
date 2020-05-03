@@ -107,24 +107,26 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Article $article
-     * @return \Illuminate\Http\Response
+     * @param Article $article
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Article $article)
     {
-        //
+        return view('admin.article.edit', compact('article'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Article $article
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Article $article
+     * @return array
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $data = $request->except(['action', 'created_at', 'updated_at', 'deleted_at', 'id']);
+        $article->update($data);
+        return ['status' => 0, 'url' => route('admin.article.index')];
     }
 
     /**
