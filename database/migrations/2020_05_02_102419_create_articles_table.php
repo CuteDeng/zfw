@@ -18,6 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string('title', 200)->comment('标题');
             $table->string('desc', 255)->default('')->comment('摘要');
             $table->string('pic', 200)->default('')->comment('封面');
+            $table->string('url', 255)->default('')->comment('采集网站内容页面链接');
             $table->text('body')->comment('文章内容');
             $table->timestamps();
             $table->softDeletes();

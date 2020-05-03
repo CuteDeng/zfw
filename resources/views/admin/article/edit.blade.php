@@ -112,7 +112,6 @@
                     this.info.body = this.editor.getContent();
                     //json转换成字符串
                     var frmData = JSON.stringify(this.info);
-                    console.log(frmData)
                     // fetch 方式发送ajax
                     let ret = await fetch(this.$refs.frm.action, {
                         method: 'PUT',
